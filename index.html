@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Генератор аватарок и артов из скинов Minecraft</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Этот сервис превращает скины Minecraft в забаные аватары и арты">
+    <meta itemprop="image" content="like.png">
+    <link rel="image_src" href="like.png" />
+    <meta property="og:image" content="like.png" />
+
+
+    
+            <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+    
+
+
+
+    <!--[if lt IE 9]>
+    <script src="/bundles/skazo4negskincatalog/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+
+
+<body style="direction: ltr">
+
+
+<div class="container">
+    <noscript>
+        <div class="alert alert-error"><strong>Важно!</strong>Этот сервис в своей работе использует технологии современных бразуеров, такие как Canvas и JavaScript. Пожалуйста, включите JavaScript в настройках своего браузера. Без этого сервис работать не будет :(</div>
+    </noscript>
+    <div style="text-align: center;line-height: 115px">
+                <span class="pull-left">Выбери меня:</span>
+                <a class="examples" href="skins/capitan_america_skin.png"><img src="skins/capitan_america.png"/></a>
+        <a class="examples" href="skins/diamond_skin.png"><img src="skins/diamond_man.png"/></a>
+        <a class="examples" href="skins/hulk_skin.png"><img src="skins/hulk.png"/></a>
+        <a class="examples" href="skins/iron_man_skin.png"><img src="skins/iron_man.png"/></a>
+        <a class="examples" href="skins/jack_skin.png"><img src="skins/jack.png"/></a>
+        <a class="examples" href="skins/simpson_skin.png"><img src="skins/simpson.png"/></a>
+        <a class="examples" href="skins/trololo_skin.png"><img src="skins/trololo.png"/></a>
+        <a class="examples" href="skins/psy_skin.png"><img src="skins/psy.png"/></a>
+    </div>
+
+    <div class="row" style="">
+        <div class="span3">
+            <p>
+                <label for="avatar_type">Тип</label>
+                <img src="type_round.png"/>
+                <input class="control" type="radio" name="avatar_type" value="round"/>&nbsp;
+                <input class="control" type="radio" name="avatar_type" value="sqare" checked/>
+                <img src="type_sqare.png"/>
+
+            </p>
+            <p>
+                <label for="pixel_size">Размер пикселя</label>
+                <input type="hidden" id="pixel_size" value="9" name="pixel_size"/>
+                <div id="pixel_size_slider"></div>
+            </p>
+
+            <p class="hideable">
+                <label for="stroke_size">Толщина обводки</label>
+                <input type="hidden" id="stroke_size" value="100" name="stroke_size"/>
+                <div id="stroke_size_slider" class="hideable"></div>
+            </p>
+
+            <label for="show_hat">
+                <input class="control" type="checkbox" id="show_hat" name="show_hat"/>
+                Отображать "шлем"            </label>
+            <label for="double_stroke"  class="hideable">
+            <input class="control" type="checkbox" id="double_stroke" name="double_stroke"/>
+            Двойная обводка шеи            </label>
+            <label for="separate_legs"  class="hideable">
+                <input name="separate_legs" class="control" type="checkbox" id="separate_legs" checked/>
+                Отдельные ноги            </label>
+
+            <label for="stroke_color">
+                Цвет обводки                <input id="stroke_color" name="stroke_color" type='color' class='basic  color' value='#000'/>
+            </label>
+
+
+            <label for="mosaic">
+            <input name="mosaic" class="control" type="checkbox" id="mosaic" checked/>
+            <span class="tooltipitem" data-toggle="tooltip" title="Пикселизации позволяет смазать детали и получить аватар с более ярко выраженными квадратами пикселей">Пикселизация&nbsp;<i class="icon-question-sign"></i></span>
+            </label>
+
+            <label for="mosaic_dividers">
+            <span class="tooltipitem" data-toggle="tooltip" title="Размер области пиксилизации. Чем меньше эта величина, тем меньше деталей остается.">Размер области&nbsp;<i class="icon-question-sign"></i></span>
+
+            <select id="mosaic_dividers" name="mosaic_dividers">
+                <option value="1"/>
+            </select>
+
+            <label>Фон</label>
+            <label>
+            <input id="transparent_bg" name="bg" type='radio' value="transparent" checked/>
+                Прозрачный</label>
+                <label>
+            <input id="radial_bg" name="bg" type='radio' value="radial"/>
+
+                Круговой градиент</label>
+                <div id="bg_controls_radial" class="bg_controls" style="display:none">
+                    <input id="start_color" name="start_color" type='color' class='basic color' value='#EEEEEE'/>
+                    <input id="end_color" name="end_color" type='color' class='basic color' value='#444444'/>
+                </div>
+
+                <label for="sepia">
+                    <input name="sepia" class="control" type="checkbox" id="sepia"/>
+                    <span class="tooltipitem" data-toggle="tooltip" title="Фильтр Сепия. С ней все становится Круче:)">Сепия&nbsp;<i class="icon-question-sign"></i></span>
+                </label>
+                <p>
+                    <label for="sepia_level">Сепия.Шум</label>
+                    <input type="hidden" id="sepia_level" value="0" name="sepia_level"/>
+                <div id="sepia_level_slider"></div>
+                </p>
+
+
+
+
+
+            </label>
+        </div>
+        <div class="span5">
+            <canvas id="myCanvas" width="380" height="600" style="border:solid 1px black;"></canvas>
+        </div>
+        <div class="span4">
+            <label>
+                <span class="tooltipitem" data-toggle="tooltip" title="Укажите ник лицензионного игрока для загрузки его скина">Ник&nbsp;<i class="icon-question-sign"></i></span>                <a href="http://skini-minecraft.ru/" target="_blank" title="Самый полный каталог скинов minecraft по никам в рунете">Скины по никам</a>
+                <br/>
+                <div class="input-append" style="direction: ltr">
+                    <input class="span2 " type="text" id="nick" style="direction: ltr">
+                    <button id="download_skin" class="btn btn-success" data-loading-text="Загрузка..." type="button">Загрузить</button>
+                </div>
+            </label>
+            <label>
+            <span class="tooltipitem" data-toggle="tooltip" title="Вы можете создать аватар из файла-скина на домашнем коипьютере. Для этого достаточно загрузить его в это поле формы. Поддерживаются только стандартные скины 64x32">Загрузить файл скина&nbsp;<i class="icon-question-sign"></i></span>
+            <input type="file" id="input"/>
+            </label>
+            <div id="errors"></div>
+            <br/>
+            <!-- mcavatar -->
+            <div id='div-gpt-ad-1392110905423-0' style='width:300px; height:250px;'>
+                <script type='text/javascript'>
+                    googletag.cmd.push(function() { googletag.display('div-gpt-ad-1392110905423-0'); });
+                </script>
+            </div>
+
+            <p style="text-align: center">
+            <div class="btn-group">
+                <a class="span2 btn btn-large btn-success download" download="minecraft_avatar.png" href="#" target="_blank">Скачать</a>
+                                <button class="btn dropdown-toggle btn-large btn-success" data-toggle="dropdown">
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a id="vkavatar" tabindex="-1">Опубликовать<br/> на стене VK</a></li>
+                </ul>
+                            </div>
+
+                        </p>
+            <div id="share_please" style="text-align: center;display: none; background-color: white;z-index: 2;position: relative">
+                <h3>Поделитесь с друзьями!</h3>
+                <p>Вам понравился получившийся аватар? Да! Тогда поделитесь с друзьями нашим сервисом, чтобы он становился лучше (или просто кликните Скачать еще раз)</p>
+                <div class="span4 addthis_toolbox addthis_default_style addthis_32x32_style"   addthis:url="http://minecraftskinavatar.com/">
+                                            <a class="addthis_button_vk"></a>
+                        <a class="addthis_button_facebook"></a>
+                        <a class="addthis_button_twitter"></a>
+                        <a class="addthis_button_google_plusone_share"></a>
+                        <a class="addthis_button_compact"></a>
+
+                                    </div>
+                <a style="margin-top:20px" class="btn btn-small btn-info download" download="minecraft_avatar.png" href="#" target="_blank">Скачать</a>
+            </div>
+            <h5 style="z-index:1;position: absolute;top: 790px"><a href="http://yourminecraftwallpapers.com" target="_blank">Так же зацените генератор<br/>обоев minecraft</a></h5>
+            <h5 style="z-index:1;position: absolute;top: 690px"><a href="http://yourminecraftservers.com" target="_blank">!!!ВЫбери сервер minecraft под душе. 18+!!</a></h5>
+            <h5 style="z-index:1;position: absolute;top: 740px"><a href="/embed-me.html">Сделай генератор<br> аватар на своем сайте!!</a></h5>
+                                    <h5 style="z-index:1;position: absolute;top: 640px"><a href="/promote-public.html">Раскручивай свою группу<br/> с помощью генератора</a></h5>
+                    </div>
+    </div>
+
+    <hr>
+
+    <footer>
+        <p>
+            Сервис который превращает скины майнкрафт в забавные 8битные арты и аватары. С любыми вопросами - обращайтесь на <a href="mailto:info@minecraftskinavatar.com">info@minecraftskinavatar.com</a>.<br/>Вы наверняка не знали, но первым такие фигурки придумал <a href="https://vk.com/red_sim" target="_blank" rel="nofollow">Станислав Марамыгин</a>. Если вам нравятся такие фигурки - обязательно напишите ему об этом.
+        </p>
+    </footer>
+
+</div>
+<script type="text/javascript" src="0c877ce.js"></script>
+</body>
+</html>
